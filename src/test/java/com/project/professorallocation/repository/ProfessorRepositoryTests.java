@@ -10,62 +10,55 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-import com.project.professorallocation.model.Department;
+import com.project.professorallocation.model.Professor;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 @TestPropertySource(locations = "classpath:application.properties")
-public class DepartmentRepositoryTests {
+public class ProfessorRepositoryTests {
 
 	@Autowired
-	private DepartmentRepository repository;
+	private ProfessorRepository repository;
 
 	@Test
 	public void findAll() {
-		List<Department> items = repository.findAll();
+		List<Professor> items = repository.findAll();
 
 		System.out.println("Qtd elementos retornados: " + items.size());
 
-		for (Department item : items) {
+		for (Professor item : items) {
 			System.out.println(item);
 		}
 
 	}
 
-	public void findDepartmentByPartOfTheName() {
-		List<Department> depts = repository.findByNameLike("%tic%");
-		
-		System.out.println("Elementos retornados: " + depts.size());
-		depts.forEach(System.out::println);
-	}
-	
-	
 	@Test
-	public void findSpecificDepartment() {
-		Department dept = repository.findById(4L).orElse(null);
+	public void findSpecificElement() {
+		Professor dept = repository.findById(5L).orElse(null);
 
 		System.out.println(dept);
 	}
 
 	@Test
 	public void create() {
-		Department departmentBeingCreated = new Department();
-		departmentBeingCreated.setName("Departamento de Psicologia");
+		Professor professorBeingCreated = new Professor();
+		professorBeingCreated.setName("Bianca");
+		professorBeingCreated.setDepartmentId(5L);
+		professorBeingCreated.setCpf("87645678912");
 
-		departmentBeingCreated = repository.save(departmentBeingCreated);
-		System.out.println(departmentBeingCreated);
+		professorBeingCreated = repository.save(professorBeingCreated);
+		System.out.println(professorBeingCreated);
 	}
 
 	@Test
 	public void update() {
-		Department departmentBeingCreated = new Department();
-		departmentBeingCreated.setId(5L);
-		departmentBeingCreated.setName("Departamento de Fisioterapia");
+		Professor professorBeingCreated = new Professor();
+		professorBeingCreated.setId(null);
+		professorBeingCreated.setName(null);
 
-		departmentBeingCreated = repository.save(departmentBeingCreated);
-		System.out.println(departmentBeingCreated);
-
+		professorBeingCreated = repository.save(professorBeingCreated);
+		System.out.println(professorBeingCreated);
 	}
 
 	@Test
@@ -77,4 +70,5 @@ public class DepartmentRepositoryTests {
 	public void deleteAllItems() {
 		repository.deleteAllInBatch();
 	}
+
 }

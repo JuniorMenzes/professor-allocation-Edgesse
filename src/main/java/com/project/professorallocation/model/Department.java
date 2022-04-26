@@ -6,16 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+
 @Entity
 @Table(name = "department")
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(length = 100, nullable = false)
+
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
-	
 
 	public Department() {
 		super();
@@ -25,7 +25,7 @@ public class Department {
 		return name;
 	}
 
-	public void setNome(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -42,5 +42,4 @@ public class Department {
 		return "Department [name=" + name + ", id=" + id + "]";
 	}
 
-	
 }
